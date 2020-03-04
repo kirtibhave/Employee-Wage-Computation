@@ -2,21 +2,20 @@
 echo "**********Welcome to Employee Wage Computation Program**********"
 
 #CONSTANTS
-readonly EMPLOYEE_IS_PRESENT=1
+FullTimeEmployee=1
+PartTimeEmployee=2
 
 #VARIABLES
 empHrs=8
 empWagePerHr=20
 
-#Function is used to check employee is present or not
-function calculateDailyEmployeeWage(){
-randomCheck=$((RANDOM%2));
-if [ $EMPLOYEE_IS_PRESENT -eq $randomCheck ]
-then
-	salary=$(($empHrs * $empWagePerHr))
-else
-	salary=0
-fi
-	echo "Daily employee wage is: $salary"
-}
-calculateDailyEmployeeWage
+employeeCheck=$((RANDOM%3));
+case $employeeCheck in
+     $FullTimeEmployee)
+						empHrs=8 ;;
+     $PartTimeEmployee)
+						empHrs=4 ;;
+     *)
+						empHrs=0 ;;
+esac
+     salary=$(($empHrs*$empWagePerHr));
