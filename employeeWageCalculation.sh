@@ -1,23 +1,34 @@
 #!/bin/bash -x
 echo "**********Welcome to Employee Wage Computation Program**********"
 
-readonly partTimeEmployee=1
-readonly fullTimeEmployee=2
+#CONSTANTS
+FULL_TIME_EMPLOYEE=2
+PART_TIME_EMPLOYEE=1
+NUM_OF_WORKING_DAYS=20
+EMP_WAGE_PER_HR=20
+MAX_HRS_IN_MONTH=100
+TOTAL_EMP_HRS=0
 
-empWagePerHr=20
-numWorkingDays=20
-employeeCheck=$(( RANDOM%3 ))
-for ((day=1;day<=$numWorkingDays; day++ ))
+#VARIABLES
+totalEmpHrs=0
+totalWorkingDays=0
+totalSalary=0
+
+while [[ $totalEmpHrs -lt $MAX_HRS_IN_MONTH  &&  $totalWorkingDays -lt $NUM_OF_WORKING_DAYS ]]
 do
-   case $employeeCheck in
-     $fullTimeEmployee)
-                 empHrs=8 ;;
-     $partTimeEmployee)
-                 empHrs=4 ;;
-     *)
-                 empHrs=0 ;;
-esac
-     salary=$(($empHrs*$empWagePerHr));
-     totalSalary=$(($totalSalary+$salary));
+	((totalWorkingDays++))
+	employeeCheck=$((RANDOM%3))
+	case $employeeCheck in
+			$FULL_TIME_EMPLOYEE)
+						empHrs=8 ;;
+			$PART_TIME_EMPLOYEE)
+						empHrs=4 ;;
+			*)
+						empHrs=0 ;;
+	esac
+		echo $empHrs
+		totalEmpHrs=$(($totalEmpHrs+$empHrs))
+		echo "totalEmpHrs is:$totalEmpHrs"
 done
-
+		totalSalary=$(($totalEmpHrs*$EMP_WAGE_PER_HR))
+		echo " totalSalary is:$totalSalary"
