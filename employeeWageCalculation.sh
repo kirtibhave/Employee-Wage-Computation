@@ -23,16 +23,23 @@ function getWorkingHours() {
 		*)
 			empHrs=0 ;;
 	esac
-     echo $empHrs
+			echo $empHrs
+}
+
+function dailyWageCalculate(){
+	local workHrs=$1
+	wage=$(($workHrs*$EMP_WAGE_PER_HR))
+	echo $wage
 }
 
 while [[ $totalEmpHrs -lt $MAX_HRS_IN_MONTH && $totalWorkingDays -lt $NUM_OF_WORKING_DAYS ]]
 do
-        ((totalWorkinDays++))
-        empHrs="$( getWorkingHours $((RANDOM%3)) )"
-        totalEmpHrs=$(($totalEmpHrs+$empHrs))
+	((totalWorkingDays++))
+	empHrs="$( getWorkingHours $((RANDOM%3)) )"
+	totalEmpHrs=$(($totalEmpHrs+$empHrs))
+	empDailyWage[$totalWorkingDays]="$( dailyWageCalculate $empHrs )"
 done
-        totalSalary=$(($totalEmpHrs*$EMP_WAGE_PER_HR))
-
-
+	totalSalary=$(($totalEmpHrs*$EMP_WAGE_PER_HR))
+	echo "Daily wage " ${empDailyWage[@]}
+	echo "TotalSalary is" $totalSalary 
 
