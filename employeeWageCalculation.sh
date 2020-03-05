@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash 
 echo "**********Welcome to Employee Wage Computation Program**********"
 
 #CONSTANTS
@@ -17,15 +17,16 @@ totalSalary=0
 function getWorkingHours() {
 	case $1 in
 		$FULL_TIME_EMPLOYEE)
-			empHrs=8 ;;
+									empHrs=8 ;;
 		$PART_TIME_EMPLOYEE)
-			empHrs=4 ;;
+									empHrs=4 ;;
 		*)
-			empHrs=0 ;;
+									empHrs=0 ;;
 	esac
-			echo $empHrs
+	echo $empHrs
 }
 
+#Function is used to calculate daily wage
 function dailyWageCalculate(){
 	local workHrs=$1
 	wage=$(($workHrs*$EMP_WAGE_PER_HR))
@@ -38,6 +39,7 @@ do
 	empHrs="$( getWorkingHours $((RANDOM%3)) )"
 	totalEmpHrs=$(($totalEmpHrs+$empHrs))
 	empDailyWage[$totalWorkingDays]="$( dailyWageCalculate $empHrs )"
+	echo "Wage for day" $totalWorkingDays "is" $(($empHrs*$EMP_WAGE_PER_HR))
 done
 	totalSalary=$(($totalEmpHrs*$EMP_WAGE_PER_HR))
 	echo "Daily wage " ${empDailyWage[@]}
