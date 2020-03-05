@@ -17,11 +17,11 @@ totalSalary=0
 function getWorkingHours() {
 	case $1 in
 		$FULL_TIME_EMPLOYEE)
-									empHrs=8 ;;
+			empHrs=8 ;;
 		$PART_TIME_EMPLOYEE)
-									empHrs=4 ;;
+			empHrs=4 ;;
 		*)
-									empHrs=0 ;;
+			empHrs=0 ;;
 	esac
 	echo $empHrs
 }
